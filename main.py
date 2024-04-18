@@ -28,7 +28,29 @@ for filepath in filepaths:
     pdf.cell(50, 12, txt=f"Invoice number: {invoice_num}", ln=1)
 
     pdf.set_font("Times", size=12, style='B')
-    pdf.cell(50, 12, txt=f"Date: {date}")
+    pdf.cell(50, 12, txt=f"Date: {date}", ln=1)
+
+    #headers
+    columns = df.columns  # index object is iterable no need to convert to list
+    print(columns)
+    columns = [item.replace('_', ' ').title() for item in columns]
+    pdf.set_font(family='Times', size=12, style='B')
+    pdf.set_text_color(0, 0, 0)
+    pdf.cell(30, 12, txt=columns[0], border=1)
+    pdf.cell(60, 12, txt=columns[1], border=1)
+    pdf.cell(40, 12, txt=columns[2], border=1)
+    pdf.cell(30, 12, txt=columns[3], border=1)
+    pdf.cell(30, 12, txt=columns[4], border=1, ln=1)
+
+    # rows
+    for index, row in df.iterrows():
+        pdf.set_font(family='Times', size=12, style='B')
+        pdf.set_text_color(100, 100, 100)
+        pdf.cell(30, 12, txt=str(row['product_id']), border=1)
+        pdf.cell(60, 12, txt=str(row['product_name']), border=1)
+        pdf.cell(40, 12, txt=str(row['amount_purchased']), border=1)
+        pdf.cell(30, 12, txt=str(row['price_per_unit']), border=1)
+        pdf.cell(30, 12, txt=str(row['total_price']), border=1, ln=1)
 
     pdf.output(f"PDFS/{filename}.pdf")
 
