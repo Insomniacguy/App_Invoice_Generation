@@ -52,6 +52,21 @@ for filepath in filepaths:
         pdf.cell(30, 12, txt=str(row['price_per_unit']), border=1)
         pdf.cell(30, 12, txt=str(row['total_price']), border=1, ln=1)
 
+    total_price = df['total_price'].sum()
+    pdf.set_font(family='Times', size=12, style='B')
+    pdf.cell(30,12, border=1,)
+    pdf.cell(60,12, border=1,)
+    pdf.cell(40,12, border=1,)
+    pdf.cell(30,12, border=1,)
+    pdf.cell(0,12,txt=str(total_price), border=1, align='L', ln=1)
+
+    pdf.set_font(family='Times', size=12, style='B')
+    pdf.cell(15, 12, border=0, txt=f"The total price is {total_price}", ln=1)
+
+    pdf.set_font(family='Times', size=12, style='B')
+    pdf.cell(25, 12, border=0, txt="PythonHow")
+    pdf.image("pythonhow.png", w=10)
+
     pdf.output(f"PDFS/{filename}.pdf")
 
 # print(filepaths)
